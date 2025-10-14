@@ -1,7 +1,7 @@
 import OpenAI from "https://cdn.skypack.dev/openai";  // OpenAI könyvtár importálása, ezt az AI csinálta, mert helyileg nem foagadta el
 
 function openaiInit() {
-    const apiKey = "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";
+    const apiKey = "";
     const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
     eventListeners(openai);
 }
