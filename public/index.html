@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ice Gaggin</title>
+
+    <!-- CSS fájlok -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+
 </head>
+
 <body>
-    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="x-button" id="close-button">&times;</span>
+            <p>Kérlek, töltsd ki az összes kötelező mezőt!</p>
+            <button class="close-button" id="close-button">Bezárás</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h1 class="title">Ice Gaggin</h1>
+        </div>
+        <div class="form-container">
+            <form id="form" class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <label for="lang-input">* Nyelv:</label>
+                    <input type="text" id="lang-input" class="form-control"
+                        placeholder="Írd be a preferált programozási nyelvet!" list="lang-suggestions">
+                    <datalist id="lang-suggestions">
+                        <option value="JavaScript"></option>
+                        <option value="Python"></option>
+                        <option value="Java"></option>
+                        <option value="C#"></option>
+                        <option value="C++"></option>
+                        <option value="Go"></option>
+                        <option value="Rust"></option>
+                        <option value="Kotlin"></option>
+                        <option value="Swift"></option>
+                        <option value="TypeScript"></option>
+                    </datalist>
+
+                    <label for="time-input">* Idő:</label>
+                    <input type="text" id="time-input" class="form-control"
+                        placeholder="Írd be a fejlesztésre szánt időt!" list="time-suggestions">
+                    <datalist id="time-suggestions">
+                        <option value="1 óra"></option>
+                        <option value="1 nap"></option>
+                        <option value="1 hét"></option>
+                        <option value="2 hét"></option>
+                        <option value="1 hónap"></option>
+                        <option value="3 hónap"></option>
+                        <option value="6 hónap"></option>
+                        <option value="1 év"></option>
+                    </datalist>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <label>* Szint:</label><br>
+                    <div class="radio-inputs">
+                        <input type="radio" id="level-beginner" name="level" value="Kezdő" checked>
+                        <label for="level-beginner">Kezdő</label><br>
+                        <input type="radio" id="level-amateur" name="level" value="Amatőr">
+                        <label for="level-amateur">Amatőr</label><br>
+                        <input type="radio" id="level-intermediate" name="level" value="Középhaladó">
+                        <label for="level-intermediate">Középhaladó</label><br>
+                        <input type="radio" id="level-advanced" name="level" value="Haladó">
+                        <label for="level-advanced">Haladó</label><br>
+                        <input type="radio" id="level-pro" name="level" value="Profi">
+                        <label for="level-pro">Profi</label><br>
+                    </div>
+
+                    <label for="extra-input">Extra (opcionális):</label>
+                    <input type="text" id="extra-input" class="form-control" placeholder="Írd be a kulcsszavakat!"
+                        list="extra-suggestions">
+                    <small class="form-text text-muted">Pl.: Webfejlesztés, Mesterséges intelligencia,
+                        Játékfejlesztés, Mobilalkalmazás, stb.</small>
+                </div>
+            </form>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <label for="prompt-input">* Saját prompt:</label>
+                <textarea id="prompt-input" class="form-control" rows="4" placeholder="Írd be a saját promptodat!"></textarea>
+                <small class="form-text text-muted">Ha megadsz egy saját promptot, akkor is kötelező megadni a
+                    nyelvet, a szintet és az időt!<br>Kötelezően szerepeljenek az alábbi változónevek: ${langInput.value}, ${levelInput.value}, ${timeInput.value}, (opcionális: ${extraInput.value})<br>Eredeti (alap) prompt:<br>Készíts egy ${langInput.value} nyelven egy ${timeInput.value} idő alatt elkészíthető projektötletet a(z) ${levelInput.value} szintű fejlesztő számára.
+    A projektötlet legyen egyedi és kreatív.
+    A projektötlet legyen részletesen kifejtve, tartalmazzon egy rövid leírást, a szükséges technológiákat és eszközöket, valamint egy lépésről-lépésre útmutatót a megvalósításhoz.</small>
+            </div>
+            <button id="generate-btn" class="generate-btn">Ötlet generálása</button>
+        </div>
+    </div>
+
+    <!-- JavaScript fájlok -->
+    <script src="./main.js"></script>
 </body>
+
 </html>
