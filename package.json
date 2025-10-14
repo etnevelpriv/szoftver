@@ -1,10 +1,9 @@
 {
   "dependencies": {
-    "firebase": "^12.3.0"
+    "firebase": "^12.3.0",
+    "openai": "^6.3.0"
   },
   "scripts": {
-  "build": "echo \"Skipping root build\""
+    "build": "echo \"Skipping root build\""
+  }
 }
-
-}
-

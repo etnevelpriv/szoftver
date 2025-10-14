@@ -80,20 +80,12 @@
                         Játékfejlesztés, Mobilalkalmazás, stb.</small>
                 </div>
             </form>
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <label for="prompt-input">* Saját prompt:</label>
-                <textarea id="prompt-input" class="form-control" rows="4" placeholder="Írd be a saját promptodat!"></textarea>
-                <small class="form-text text-muted">Ha megadsz egy saját promptot, akkor is kötelező megadni a
-                    nyelvet, a szintet és az időt!<br>Kötelezően szerepeljenek az alábbi változónevek: ${langInput.value}, ${levelInput.value}, ${timeInput.value}, (opcionális: ${extraInput.value})<br>Eredeti (alap) prompt:<br>Készíts egy ${langInput.value} nyelven egy ${timeInput.value} idő alatt elkészíthető projektötletet a(z) ${levelInput.value} szintű fejlesztő számára.
-    A projektötlet legyen egyedi és kreatív.
-    A projektötlet legyen részletesen kifejtve, tartalmazzon egy rövid leírást, a szükséges technológiákat és eszközöket, valamint egy lépésről-lépésre útmutatót a megvalósításhoz.</small>
-            </div>
             <button id="generate-btn" class="generate-btn">Ötlet generálása</button>
         </div>
     </div>
 
     <!-- JavaScript fájlok -->
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 
 </html>
