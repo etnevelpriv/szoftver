@@ -1,7 +1,7 @@
-import OpenAI from "https://cdn.skypack.dev/openai";  // OpenAI könyvtár importálása, ezt az AI csinálta, mert helyileg nem foagadta el
+import OpenAI from "https://cdn.skypack.dev/openai";  // OpenAI könyvtár importálása, ezt az AI csinálta, mert helyileg nem fogadta el
 
 function openaiInit() {
-    const apiKey = "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";
+    const apiKey = process.env.OPENAI_API_KEY;
     const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
     eventListeners(openai);
 }
@@ -42,10 +42,14 @@ function userVariables() {
 
 //Gomb eseménykezelő, fetch kérés küldése
 function eventListeners(openai) {
+    const loadingContainer = document.getElementById('loading-container');
     const generateBtn = document.getElementById('generate-btn');
+    const outputContainer = document.getElementById('output-container');
+
     generateBtn.onclick = async function () {
         const prompt = userVariables();
         if (prompt) {
+            loadingContainer.style.display = 'block';
             console.log(prompt);
             const result = await openai.responses.create({
                 model: "gpt-5",
@@ -53,6 +57,11 @@ function eventListeners(openai) {
                 reasoning: { effort: "low" },
                 text: { verbosity: "low" },
             });
+            loadingContainer.style.display = 'none';
+            outputContainer.style.display = 'block';
+
+            const outputBox = document.getElementById('output-box');
+            outputBox.textContent = result.output_text;
 
             console.log(result.output_text);
         }

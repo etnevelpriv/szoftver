@@ -14,13 +14,21 @@
 </head>
 
 <body>
-    <div class="modal" id="modal">
+
+    <div style="display: none;" id="loading-container" class="loading-container">
+        <div class="spinner"></div>
+        <strong>Éppen nagyon generálja az AI a projektet, ez eltarthat egy ideig...</strong>
+        <p>Kérlek, ne zárd be az ablakot!</p>
+    </div>
+
+    <div style="display: none;" class="modal" id="modal">
         <div class="modal-content">
             <span class="x-button" id="close-button">&times;</span>
             <p>Kérlek, töltsd ki az összes kötelező mezőt!</p>
             <button class="close-button" id="close-button">Bezárás</button>
         </div>
     </div>
+
     <div class="container">
         <div class="row">
             <h1 class="title">Ice Gaggin</h1>
@@ -82,6 +90,11 @@
             </form>
             <button id="generate-btn" class="generate-btn">Ötlet generálása</button>
         </div>
+    </div>
+
+    <div style="display: none;" id="output-container" class="output-container">
+        <h2 class="output-title">Generált projektötlet:</h2>
+        <div id="output-box" class="output-box"></div>
     </div>
 
     <!-- JavaScript fájlok -->
