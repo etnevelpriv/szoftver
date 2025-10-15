@@ -29,6 +29,13 @@
         }
       },
       {
+        "source": "/api/tutorial",
+        "function": {
+          "functionId": "generate",
+          "region": "europe-west1"
+        }
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -129,7 +129,12 @@ function renderProjectIdea(projectIdea) {
     });
 }
 
-function renderTutorial() {
+// Tutorial gomb eseménykezelő
+/*  
+async function renderTutorial(tutorialText) {
+    const loadingContainer = document.getElementById('loading-container');
+    loadingContainer.style.display = 'block';
+
     const tutorialContainer = document.createElement('div');
     tutorialContainer.id = 'tutorial-container';
     tutorialContainer.className = 'tutorial-container';
@@ -138,16 +143,29 @@ function renderTutorial() {
     const tutorialButton = document.getElementById('show-tutorial-btn');
     tutorialButton.disabled = true;
 
-    const outputContainer = document.getElementById('output-container'); 
+    const outputContainer = document.getElementById('output-container');
     outputContainer.appendChild(tutorialContainer);
 
     const tutorialContent = document.createElement('div');
     tutorialContent.className = 'tutorial-content';
-    tutorialContent.innerHTML = 'Teszt';
     tutorialContainer.appendChild(tutorialContent);
-}
 
-//Gomb eseménykezelő
+    const result = await fetch("/api/tutorial", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tutorialText })
+    });
+
+    let data = {};
+    data = await result.json();
+
+    loadingContainer.style.display = 'none';
+    tutorialContent.textContent = data.tutorial_text;
+    tutorialButton.disabled = false;
+}
+*/
+
+//Generáló gomb eseménykezelő
 function eventListeners() {
     const loadingContainer = document.getElementById('loading-container');
     const generateBtn = document.getElementById('generate-btn');
@@ -155,7 +173,6 @@ function eventListeners() {
 
     generateBtn.onclick = async function () {
         const prompt = userVariables();
-        outputContainer.style.display = 'none';
         loadingContainer.style.display = 'block';
         generateBtn.disabled = true;
 
@@ -172,13 +189,15 @@ function eventListeners() {
 
         loadingContainer.style.display = 'none';
 
+        /*  
         const tutorialButton = document.createElement('button');
         tutorialButton.id = 'show-tutorial-btn';
         tutorialButton.textContent = 'Kezdő kód generálása';
         outputContainer.appendChild(tutorialButton);
         tutorialButton.onclick = function () {
-            renderTutorial();
+            renderTutorial(JSON.parse(data.output_text));
         }
+        */
 
         outputContainer.style.display = 'block';
     }

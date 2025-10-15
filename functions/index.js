@@ -6,7 +6,7 @@ const OpenAI = require("openai");
 const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
 
 exports.generate = onRequest({ secrets: [OPENAI_API_KEY], region: "europe-west1" }, async (req, res) => {
-  
+
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.set("Access-Control-Allow-Headers", "Content-Type");
@@ -29,6 +29,36 @@ exports.generate = onRequest({ secrets: [OPENAI_API_KEY], region: "europe-west1"
   });
 
   const output_text = completion.choices[0].message.content;
-  
+
   res.status(200).json({ output_text });
 });
+/*
+
+exports.tutorial = onRequest({ secrets: [OPENAI_API_KEY], region: "europe-west1" }, async (req, res) => {
+  
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+
+  const body = req.body;
+  const prompt = body.tutorialText;
+
+  const client = new OpenAI({ apiKey: OPENAI_API_KEY.value() });
+
+  const completion = await client.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      {
+        role: "system",
+        content: "Te egy tapasztaltalt szoftverfejlesztő vagy. Feladatod, hogy a felhasználótól kapott projektötlet alapján készítsd el a szükséges fájlokhoz tartozó kódokat. Az összes megadott fájlhoz legyen kód. Az összes kódban legyenek kommentek, amemlyek elmagyarázzák a kódrészleteket. A fájlokhoz tartozó neveket vedd figyelembe. A válaszod formai követelménye: kizárólag érvényes JSON objektum, amely pontosan a következő kulcsokat tartalmazza: filename, content. A filename kulcshoz a fájl neve tartozzon, a content kulcshoz pedig a fájl tartalma. Minden kulcshoz magyar nyelvű szöveges értéket adj, Markdown vagy kódblokk nélkül, a JSON előtt és után se szerepeljen más szöveg."
+      },
+      { role: "user", content: prompt }
+    ],
+    temperature: 0.45,
+  });
+
+  const tutorial_text = completion.choices[0].message.content;
+  
+  res.status(200).json({ tutorial_text });
+});
+*/
