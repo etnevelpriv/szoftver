@@ -18,8 +18,14 @@ exports.generate = onRequest({ secrets: [OPENAI_API_KEY], region: "europe-west1"
 
   const completion = await client.chat.completions.create({
     model: "gpt-4o-mini",
-    messages: [{ role: "user", content: prompt }],
-    temperature: 0.7,
+    messages: [
+      {
+        role: "system",
+        content: "Te egy tapasztalt szoftverfejlesztő mentor vagy, aki magyarul kommunikál. Visszatérő feladatod, hogy a felhasználótól kapott paraméterek alapján megfelelő komplexitású, részletes projektötletet adj. A válaszod formai követelménye: kizárólag érvényes JSON objektum, amely pontosan a következő kulcsokat tartalmazza: title, summary, estimated_scope, why_this_level, tech_stack, setup_steps, build_steps, testing_and_validation, extra_challenges, learning_outcomes. Minden kulcshoz magyar nyelvű szöveges vagy szöveg tömb értéket adj, Markdown vagy kódblokk nélkül, a JSON előtt és után se szerepeljen más szöveg. A listák legalább a prompt által elvárt elemszámot tartalmazzák, a projekt ne legyen túl bonyolult a megadott szinthez képest, és indokold meg, hogyan igazodik a szinthez."
+      },
+      { role: "user", content: prompt }
+    ],
+    temperature: 0.45,
   });
 
   const output_text = completion.choices[0].message.content;
