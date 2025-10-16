@@ -1,10 +1,14 @@
 // Modal megjelenítése hiba esetén
 function showModal() {
     const modal = document.getElementById('modal');
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
 
-    const modalClose = document.getElementById('close-button');
+    const modalClose = document.querySelector('.close-button');
+    const modalX = document.getElementById('close-button');
     modalClose.onclick = function () {
+        modal.style.display = 'none';
+    }
+    modalX.onclick = function () {
         modal.style.display = 'none';
     }
 }
@@ -14,12 +18,17 @@ function userVariables() {
     const langInput = document.getElementById('lang-input');
     const timeInput = document.getElementById('time-input');
     const extraInput = document.getElementById('extra-input');
-    const levelInput = document.querySelector('input[name="level"]:checked');
+    const levelInput = document.querySelector('.level-option.active');
+    const loadingContainer = document.getElementById('loading-container');
+    const generateBtn = document.getElementById('generate-btn');
 
     if (!levelInput || !langInput.value || !timeInput.value) {
         showModal();
         return;
     }
+
+    loadingContainer.style.display = 'flex';
+    generateBtn.disabled = true;
 
     const extras = extraInput.value.trim();
 
@@ -28,7 +37,7 @@ function userVariables() {
 Felhasználói paraméterek:
 - Programozási nyelv: ${langInput.value}
 - Fejlesztési időkeret: ${timeInput.value}
-- Célzott felkészültségi szint: ${levelInput.value}
+- Célzott felkészültségi szint: ${levelInput.dataset.level}
 ${extras ? `- Extra preferenciák vagy kulcsszavak: ${extras}
 ` : ''}
 
@@ -171,10 +180,16 @@ function eventListeners() {
     const generateBtn = document.getElementById('generate-btn');
     const outputContainer = document.getElementById('output-container');
 
+    const levelOptions = document.querySelectorAll('.level-option');
+    levelOptions.forEach(option => {
+        option.onclick = function () {
+            levelOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+        };
+    });
+
     generateBtn.onclick = async function () {
         const prompt = userVariables();
-        loadingContainer.style.display = 'block';
-        generateBtn.disabled = true;
 
         // A fetchben is a copilot segített, de itt is módosítottam a kódot, hogy működjön. Túl sok volt a hibakezelés
         const result = await fetch("/api/generate", {
@@ -186,9 +201,6 @@ function eventListeners() {
         let data = {};
         data = await result.json();
         await renderProjectIdea(JSON.parse(data.output_text));
-
-        loadingContainer.style.display = 'none';
-
         /*  
         const tutorialButton = document.createElement('button');
         tutorialButton.id = 'show-tutorial-btn';
@@ -198,7 +210,7 @@ function eventListeners() {
             renderTutorial(JSON.parse(data.output_text));
         }
         */
-
+        loadingContainer.style.display = 'none';
         outputContainer.style.display = 'block';
     }
 }
